@@ -31,7 +31,6 @@ def run():
             frequency = utils.sentence_to_frequency_dict(message_list)
             obj[g] = frequency
         result_list.append(obj)
-    print(result_list)
 
     for index, i in enumerate(user_ids):
         cursor.execute(
