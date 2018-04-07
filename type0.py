@@ -18,16 +18,17 @@ def run():
     # 统计词频
     obj = utils.sentence_to_frequency_dict(all_message)
 
-    cursor = conn.cursor()
     cursor.execute(
         'insert into data_statistics (user_id, value, create_time, type) values (0, %s, %s, 0)',
         (utils.dict_to_json_str(obj), utils.get_now_timestamp())
     )
     conn.commit()
 
-    # 关闭Cursor和Connection:
+    print('type0 complete!')
+    # 关闭Cursor:
     cursor.close()
-    conn.close()
+    # 连接不能关闭
+    # conn.close()
 
 
 if __name__ == '__main__':

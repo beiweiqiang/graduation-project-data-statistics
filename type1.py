@@ -25,9 +25,6 @@ def run():
     for i in all_user_message:
         frequency_list.append(utils.sentence_to_frequency_dict(i))
 
-    print(frequency_list)
-
-    cursor = conn.cursor()
     for index, i in enumerate(user_ids):
         cursor.execute(
             'insert into data_statistics (user_id, value, create_time, type) values (%s, %s, %s, 1)',
@@ -35,9 +32,11 @@ def run():
         )
     conn.commit()
 
-    # 关闭Cursor和Connection:
+    print('type1 complete!')
+    # 关闭Cursor:
     cursor.close()
-    conn.close()
+    # 连接不能关闭
+    # conn.close()
 
 
 if __name__ == '__main__':
