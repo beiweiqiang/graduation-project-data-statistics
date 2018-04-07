@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import connect
-import jieba
-from collections import Counter
 import utils
-import json
 
 conn = connect.conn
 
@@ -19,22 +16,12 @@ def run():
         all_message.append(i[0])
 
     # 统计词频
-    c = Counter()
-    for i in all_message:
-        seg_list = jieba.cut(i)
-        for x in seg_list:
-            if len(x) > 1:
-                c[x] += 1
-
-    obj = {}
-    for (k, v) in c.most_common():
-        obj[k] = v
-    print(obj)
+    obj = utils.sentence_to_frequency_dict(all_message)
 
     cursor = conn.cursor()
     cursor.execute(
         'insert into data_statistics (user_id, value, create_time, type) values (0, %s, %s, 0)',
-        (json.dumps(obj, ensure_ascii=False), utils.get_now_timestamp())
+        (utils.dict_to_json_str(obj), utils.get_now_timestamp())
     )
     conn.commit()
 
