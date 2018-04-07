@@ -23,6 +23,14 @@ def tuple_to_list(l):
     return array
 
 
+# list 里面包含 tuple, 每个tuple, 第一个元素作为k, 第二个元素作为v
+def tuple_to_map(l):
+    obj = {}
+    for (k, v) in l:
+        obj[k] = v
+    return obj
+
+
 # 输入一句话, 输出一个dict 词频Map
 def sentence_to_frequency_dict(s):
     # 统计词频
